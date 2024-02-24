@@ -16,17 +16,32 @@ start:
     mov ds, ax
     mov es, ax
 
-    ;1) @250h=FFh ; @251h=0Fh ;@252h=10h ;@252h=1Eh ;@253h=02h
-;   2) Calculer le résultat de l’opération suivante : @260h=@250h - @ 251h - @252h - @253h
+    ;remplire le tableau 
     
-    mov [250h],ffh
-    mov [251]=0fh 
-    mov [252]=10h 
-    mov [252]=1Eh
-    mov [253]=02h
+    mov cx,10
+    mov si,0
     
-    ;l'operation
-    sub [251],[252]
+    remplir:    
+    
+        mov [250+si],05h
+        inc si
+    
+    loop remplir 
+    
+    ; initialise cx avec 10 pour 
+    mov cx,10
+    mov si,0
+    
+    mov ax,0 ;initialiser le ax avec 0
+    somme:    
+    
+        add ah,[250+si]
+        inc si
+    
+    loop somme 
+    
+    
+    
     
     mov ax, 4c00h ; exit to operating system.
     int 21h    
